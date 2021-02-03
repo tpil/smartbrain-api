@@ -1,3 +1,4 @@
+const { DEMOGRAPHICS_MODEL, FACE_EMBED_MODEL, CELEBRITY_MODEL } = require('clarifai');
 const Clarifai = require('clarifai');
 
 //Moved to Back-End so its hidden from headers req
@@ -7,13 +8,25 @@ const handleApiCall = (req,res) =>{
   
 //app.models.predict({id: 'c0c0ac362b03416da06ab3fa36fb58e3'},req.body.input)
 //app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},req.body.input)
-console.log('the image URL is:',req.body.imageURL);
+//console.log('the image URL is:',req.body.imageURL);
 app.models.predict({id:'d02b4508df58432fbb84e800597b8959' },req.body.imageURL)
                 .then(data=>{
                    res.json(data);
                 })
                 .catch(err=> res.status(400).json(err));
 }
+
+const handleApiDemograph = (req,res) =>{
+  
+  //app.models.predict({id: 'c0c0ac362b03416da06ab3fa36fb58e3'},req.body.input)
+  //app.models.predict({id: 'd02b4508df58432fbb84e800597b8959'},req.body.input)
+  //console.log('the image URL is:',req.body.imageURL);
+  app.models.predict({id:'aaa03c23b3724a16a56b629203edc62c'},req.body.imageURL)
+                  .then(data=>{
+                     res.json(data);
+                  })
+                  .catch(err=> res.status(400).json(err));
+  }
 const handleImage = (req,res,db)=>{
     const {id} =req.body;
     //using knex increment() to increase the number of entries
@@ -27,5 +40,6 @@ const handleImage = (req,res,db)=>{
 }
 module.exports = {
     handleImage,
-    handleApiCall
+    handleApiCall,
+    handleApiDemograph
 }
